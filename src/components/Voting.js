@@ -1,31 +1,26 @@
 import React, {Component, PropTypes} from 'react';
+import Winner from './Winner';
+import Vote from './Vote';
 
 export default class Voting extends Component {
 	static propTypes = {
 		pair: PropTypes.array,
 		vote: PropTypes.func,
-		hasVoted: PropTypes.bool
+		hasVoted: PropTypes.string,
+		winner: PropTypes.string
 	};
-	getPair() {
-		return this.props.pair || [];
-	}
-	isDisabled() {
-		return !!this.props.hasVoted;
-	}
 	render() {
-		let pair = this.getPair();
 		return (
-			<div className="voting">
-				{pair.map(entry => {
-					return (
-						<button
-							disabled={this.isDisabled()} 
-							onClick={() => this.props.vote(entry)}
-							key={entry}>
-							<h1>{entry}</h1>
-						</button>
-					);
-				})}
+			<div>
+				{this.props.winner &&
+					<Winner ref="winner" winner={this.props.winner}/>
+				}
+				{!this.props.winner &&
+					<Vote
+						pair={this.props.pair}
+						hasVoted={this.props.hasVoted}
+						vote={this.props.vote} />
+				}
 			</div>
 		);
 	}

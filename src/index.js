@@ -6,7 +6,7 @@ const pair = ['Trainspotting', '28 Days Later'];
 
 ReactDOM.render(
 	<Voting
-		hasVoted={true}
+		hasVoted="Trainspotting"
 		pair={pair} />,
 	document.getElementById('app')
 );
