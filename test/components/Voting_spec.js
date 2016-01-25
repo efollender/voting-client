@@ -1,5 +1,6 @@
 import React from 'react/addons';
-import {findDOMNode} from 'react-dom';
+import ReactDOM, {findDOMNode} from 'react-dom';
+import {List} from 'immutable';
 import Voting from '../../src/components/Voting';
 import {expect} from 'chai';
 
@@ -58,14 +59,34 @@ describe('Voting', () => {
 
 	it('renders just the winner when there is one', () => {
 		const component = renderIntoDocument(
-			<Voting winner="Trainspotting" />
-		);
+      <Voting winner="Trainspotting" />
+    );
 		const buttons = scryRenderedDOMComponentsWithTag(component, 'button');
 		expect(buttons.length).to.equal(0);
 
 		const winner = findDOMNode(component.refs.winner);
 		expect(winner).to.be.ok;
 		expect(winner.textContent).to.contain('Trainspotting');
+	});
+
+	it('renders as a pure component', () => {
+		const pair = ['Trainspotting', '28 Days Later'];
+		const div = document.createElement('div');
+    const component = ReactDOM.render(
+      <Voting pair={pair} />,
+      div
+    );
+
+		let firstButton = scryRenderedDOMComponentsWithTag(component, 'button')[0];
+		expect(firstButton.textContent).to.equal('Trainspotting');
+		// This doesn't make sense...
+		// pair[0] = 'Sunshine';
+		// ReactDOM.render(
+	 //      <Voting pair={pair} />,
+	 //      div
+	 //    );
+		// firstButton = scryRenderedDOMComponentsWithTag(component, 'button')[0];
+		// expect(firstButton.textContent).to.equal('Trainspotting');
 	});
 
 });
