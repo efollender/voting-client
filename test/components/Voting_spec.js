@@ -72,21 +72,42 @@ describe('Voting', () => {
 	it('renders as a pure component', () => {
 		const pair = ['Trainspotting', '28 Days Later'];
 		const div = document.createElement('div');
-    const component = ReactDOM.render(
+    let component = ReactDOM.render(
       <Voting pair={pair} />,
       div
     );
 
 		let firstButton = scryRenderedDOMComponentsWithTag(component, 'button')[0];
 		expect(firstButton.textContent).to.equal('Trainspotting');
+
 		// This doesn't make sense...
 		// pair[0] = 'Sunshine';
-		// ReactDOM.render(
-	 //      <Voting pair={pair} />,
-	 //      div
-	 //    );
+		// component = ReactDOM.render(
+		//      <Voting pair={pair} />,
+		//      div
+		//    );
 		// firstButton = scryRenderedDOMComponentsWithTag(component, 'button')[0];
 		// expect(firstButton.textContent).to.equal('Trainspotting');
+
+	});
+
+	it('does update DOM when prop changes', () => {
+		const pair = List.of('Trainspotting', '28 Days Later');
+		const div = document.createElement('div');
+		let component = renderIntoDocument(
+			<Voting pair={pair} />
+		);
+
+		let firstButton = scryRenderedDOMComponentsWithTag(component, 'button')[0];
+		expect(firstButton.textContent).to.equal('Trainspotting');
+
+		const newPair = pair.set(0, 'Sunshine');
+		component = ReactDOM.render(
+			<Voting pair={newPair} />,
+			div
+		);
+		firstButton = scryRenderedDOMComponentsWithTag(component, 'button')[0];
+    expect(firstButton.textContent).to.equal('Sunshine');
 	});
 
 });
