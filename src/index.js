@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Voting from './components/Voting';
+import Routes from './routes';
 
-const pair = ['Trainspotting', '28 Days Later'];
+console.log(Routes);
 
 ReactDOM.render(
-	<Voting
-		hasVoted="Trainspotting"
-		pair={pair} />,
+	Routes,
 	document.getElementById('app')
 );
