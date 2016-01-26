@@ -1,7 +1,7 @@
 import React from 'react';
 import {findDOMNode} from 'react-dom';
 import {List, Map} from 'immutable';
-import Results from '../../src/components/Results';
+import {Results} from '../../src/components/Results';
 import {expect} from 'chai';
 
 import {
@@ -42,7 +42,15 @@ describe('results', () => {
 	});
 
 	it('renders the winner when there is one', () => {
-		
+		const component = renderIntoDocument(
+			<Results 	winner="Trainspotting"
+								pair={["Trainspotting", "28 Days Later"]}
+								tally={Map()}
+								/>
+		);
+		const winner = findDOMNode(component.refs.winner);
+		expect(winner).to.be.ok;
+		expect(winner.textContent).to.contain('Trainspotting');
 	});
 
 });

@@ -1,11 +1,22 @@
 import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
 import {shouldPureComponentUpdate} from 'react-pure-render';
+import Winner from './Winner';
 
-export default class Results extends Component {
+const mapStateToProps = state => {
+	return {
+		pair: state.getIn(['vote', 'pair']),
+		tally: state.getIn(['vote', 'tally']),
+		winner: state.get('winner')
+	};
+}
+
+export class Results extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
   static propTypes = {
     pair: PropTypes.any,
-    tally: PropTypes.object
+    tally: PropTypes.object,
+    winner: PropTypes.string
   };
   getPair() {
     return this.props.pair || [];
@@ -17,8 +28,9 @@ export default class Results extends Component {
     return 0;
   }
   render() {
-    return (
-      <div className="results">
+    return this.props.winner ?
+  		<Winner winner={this.props.winner} ref="winner"/> :
+  		 <div className="results">
       	<div className="tally">
 	        {this.getPair().map(entry =>
 	          <div key={entry} className="entry">
@@ -37,6 +49,8 @@ export default class Results extends Component {
 	      	</button>
 	      </div>
       </div>
-    );
+    ;
   }
 }
+
+export const ResultsContainer = connect(mapStateToProps)(Results); 
