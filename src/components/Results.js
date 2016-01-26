@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {shouldPureComponentUpdate} from 'react-pure-render';
+import * as actionCreators from '../action_creators';
 import Winner from './Winner';
 
 const mapStateToProps = state => {
@@ -53,4 +54,4 @@ export class Results extends Component {
   }
 }
 
-export const ResultsContainer = connect(mapStateToProps)(Results); 
+export const ResultsContainer = connect(mapStateToProps, actionCreators)(Results); 
