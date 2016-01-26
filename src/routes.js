@@ -6,8 +6,8 @@ import Results from './components/Results';
 
 export default (
 	<Router history={hashHistory}>
-		<Route path="/" component={App}>
-			<Route component={Voting} />
+		<Route component={App}>
+			<Route path="/" component={Voting} />
 			<Route path="results" component={Results} />
 		</Route>
 	</Router>
