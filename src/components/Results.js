@@ -4,7 +4,7 @@ import {shouldPureComponentUpdate} from 'react-pure-render';
 export default class Results extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
   static propTypes = {
-    pair: PropTypes.array,
+    pair: PropTypes.any,
     tally: PropTypes.object
   };
   getPair() {
@@ -19,14 +19,23 @@ export default class Results extends Component {
   render() {
     return (
       <div className="results">
-        {this.getPair().map(entry =>
-          <div key={entry} className="entry">
-            <h1>{entry}</h1>
-            <div className="voteCount">
-              {this.getVotes(entry)}
-            </div>
-          </div>
-        )}
+      	<div className="tally">
+	        {this.getPair().map(entry =>
+	          <div key={entry} className="entry">
+	            <h1>{entry}</h1>
+	            <div className="voteCount">
+	              {this.getVotes(entry)}
+	            </div>
+	          </div>
+	        )}
+	      </div>
+	      <div className="management">
+	      	<button ref="next"
+	      					className="next"
+	      					onClick={this.props.next}>
+	      					Next
+	      	</button>
+	      </div>
       </div>
     );
   }

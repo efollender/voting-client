@@ -6,7 +6,7 @@ import Vote from './Vote';
 export default class Voting extends Component {
 	shouldComponentUpdate = shouldPureComponentUpdate;
 	static propTypes = {
-		pair: PropTypes.array,
+		pair: PropTypes.any,
 		vote: PropTypes.func,
 		hasVoted: PropTypes.string,
 		winner: PropTypes.string
